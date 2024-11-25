@@ -1,47 +1,96 @@
-# Svelte + Vite
+# Svelte Dice Game Alpha
 
-This template should help get you started developing with Svelte in Vite.
+A fun and interactive dice rolling game built with Svelte where players aim to match target numbers and compete for high scores. The game features both single-player and computer opponent modes, with a dynamic scoring system and persistent high scores.
 
-## Recommended IDE Setup
+<img src="assets/screenshots/screenshot-ingame.png" width="50%" alt="Svelte Dice Game Screenshot">
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+## Gameplay
 
-## Need an official Svelte framework?
+### Game Modes
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+- **Single Player**: Test your luck against the target numbers
+- **VS Computer**: Compete against a computer opponent
 
-## Technical considerations
+### How to Play
 
-**Why use this over SvelteKit?**
+1. Roll the dice by clicking the "Roll Dice" button
+2. Match the target number to earn 10 points
+3. Earn bonus points (10% of your current score)
+4. Try to achieve the highest score with the fewest rolls
+5. Your high scores are saved automatically
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+### Features
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+- Interactive 3D dice rolling animation
+- Real-time score tracking
+- Bonus points system
+- High score leaderboard
+- Roll history tracking
+- Dynamic target numbers
+- Computer opponent AI
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+## Technical Implementation
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+### Component Structure
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+- `App.svelte`: Main application container
+- `Game.svelte`: Core game logic and layout
+- `Dice.svelte`: Interactive dice component with rolling animation
+- `HighScores.svelte`: High score display and management
+- `ComputerPlayer.svelte`: AI opponent logic
+- `Counter.svelte`: Score display component
 
-**Why include `.vscode/extensions.json`?**
+### State Management
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+The game uses Svelte's built-in store system for state management:
 
-**Why enable `checkJs` in the JS template?**
+- `stores.js`: Central state management
+     - `score`: Current game score
+     - `rollHistory`: Track of all dice rolls
+     - `highScores`: Persistent high scores
+     - `bonusPoints`: Calculated bonus points (10% of current score)
+     - `totalScore`: Combined score with bonus points
+     - `gameMode`: Current game mode (single/vs computer)
+     - `target`: Current target number to match
 
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
+### Key Features Implementation
 
-**Why is HMR not preserving my local component state?**
+- **Score System**: Points are awarded for matching target numbers (10 points) plus bonus points
+- **High Score Management**: Automatically updates and maintains top scores
+- **Roll History**: Tracks every dice roll with timestamps
+- **Computer AI**: Implements strategic dice rolling for the computer opponent
+- **Responsive Design**: Adapts to different screen sizes
 
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
+## Getting Started
 
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
+### Prerequisites
 
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+```bash
+# Clone the repository
+git clone [your-repo-url]
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
 ```
+
+## Built With
+
+- [Svelte](https://svelte.dev/) - Frontend framework
+- [Vite](https://vitejs.dev/) - Build tool
+- CSS3 for styling
+- JavaScript ES6+
+
+## License
+
+This project is open source and available under the MIT License.
