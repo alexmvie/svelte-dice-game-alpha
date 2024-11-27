@@ -2,7 +2,18 @@
       import HighScores from './HighScores.svelte';
       import Dice from './Dice.svelte';
       import ComputerPlayer from './ComputerPlayer.svelte';
-      import { score, rollHistory, highScores, updateHighScores, bonusPoints, totalScore, getRandomInt, gameMode, target } from './stores.js';
+      import {
+            score,
+            rollHistory,
+            highScores,
+            updateHighScores,
+            bonusPoints,
+            totalScore,
+            getRandomInt,
+            gameMode,
+            target,
+      } from './stores.js';
+      import { tooltip } from './tooltipAction.js';
 
       let currentDiceValue;
 
@@ -28,7 +39,10 @@
 
 <div class="game-container">
       <div class="mode-selector">
-            <button on:click={toggleGameMode}>
+            <button
+                  on:click={toggleGameMode}
+                  use:tooltip={'switch game mode'}
+            >
                   {$gameMode === 'single' ? 'Switch to Computer Mode' : 'Switch to Single Player'}
             </button>
       </div>

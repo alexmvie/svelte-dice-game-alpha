@@ -1,18 +1,20 @@
 <script>
       import { createEventDispatcher } from 'svelte';
       import { getRandomInt } from './stores.js';
-      import Tooltip from './Tooltip.svelte';
+      import { tooltip } from './tooltipAction.js';
       const dispatchEvent = createEventDispatcher();
 
-      let { initialValue = 1, animationDuration = 1000 } = $props();
-      let value = $state(initialValue);
-      let isRolling = $state(false);
+      export let initialValue = 1;
+      export let animationDuration = 1000;
+      
+      let value = initialValue;
+      let isRolling = false;
 
       const roll = () => getRandomInt(1, 7);
 
       function handleRoll() {
             if (isRolling) return;
-
+            
             isRolling = true;
             const finalValue = roll();
 
@@ -75,19 +77,14 @@
                   </div>
             </div>
       </div>
-      <div class="button-wrapper">
-            <Tooltip
-                  text="Click to roll the dice and try to match the target number!"
-                  position="top"
-            >
-                  <button
-                        on:click={handleRoll}
-                        disabled={isRolling}
-                  >
-                        {isRolling ? 'Rolling...' : 'Roll Dice'}
-                  </button>
-            </Tooltip>
-      </div>
+      <button 
+            on:click={handleRoll} 
+            disabled={isRolling}
+            use:tooltip={"Click to roll the dice and try to match the target number!"}
+            class="roll-button"
+      >
+            {isRolling ? 'Rolling...' : 'Roll Dice'}
+      </button>
 </div>
 
 <style>
@@ -203,13 +200,7 @@
             }
       }
 
-      .button-wrapper {
-            display: flex;
-            justify-content: center;
-            margin-top: 1rem;
-      }
-
-      button {
+      .roll-button {
             padding: 0.8rem 1.5rem;
             font-size: 1.1rem;
             background: #4caf50;
@@ -219,20 +210,21 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            min-width: 120px;
       }
 
-      button:hover:not(:disabled) {
+      .roll-button:hover:not(:disabled) {
             transform: translateY(-2px);
             background: #45a049;
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
       }
 
-      button:active:not(:disabled) {
+      .roll-button:active:not(:disabled) {
             transform: translateY(1px);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
-      button:disabled {
+      .roll-button:disabled {
             background: #cccccc;
             cursor: not-allowed;
             transform: none;

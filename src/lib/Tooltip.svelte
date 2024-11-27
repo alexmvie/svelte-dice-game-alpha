@@ -1,72 +1,37 @@
 <script>
-    let { text = '', position = 'top' } = $props();
+    // This component is only used for its global styles
 </script>
 
-<div class="tooltip-wrapper">
-    <slot></slot>
-    <span class="tooltip" class:top={position === 'top'} class:bottom={position === 'bottom'}>
-        {text}
-    </span>
-</div>
+<div class="tooltip-styles"/>
 
 <style>
-    .tooltip-wrapper {
-        position: relative;
-        display: inline-block;
+    /* Hide the dummy element */
+    .tooltip-styles {
+        display: none;
     }
 
-    .tooltip {
-        visibility: hidden;
-        position: absolute;
-        background-color: rgba(0, 0, 0, 0.8);
+    :global(.tooltip) {
+        position: fixed;
+        background: rgba(0, 0, 0, 0.8);
         color: white;
-        text-align: center;
-        padding: 5px 10px;
-        border-radius: 6px;
-        font-size: 14px;
-        width: max-content;
-        max-width: 200px;
-        z-index: 1;
-        opacity: 0;
-        transition: opacity 0.3s;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        pointer-events: none;
+        z-index: 1000;
+        white-space: nowrap;
+        transform: translateZ(0);
+        will-change: top, left;
     }
 
-    .tooltip.top {
-        bottom: 125%;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .tooltip.bottom {
-        top: 125%;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .tooltip-wrapper:hover .tooltip {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    /* Arrow */
-    .tooltip::after {
-        content: "";
+    :global(.tooltip::after) {
+        content: '';
         position: absolute;
-        border-width: 5px;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 6px 6px 0 6px;
         border-style: solid;
-    }
-
-    .tooltip.top::after {
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
         border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
-    }
-
-    .tooltip.bottom::after {
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
     }
 </style>

@@ -1,6 +1,7 @@
 <script>
   import Counter from './lib/Counter.svelte';
   import Game from './lib/Game.svelte';
+  import Tooltip from './lib/Tooltip.svelte';
 </script>
 
 <main>
@@ -13,6 +14,8 @@
   <div class="card">
     <Game />
   </div>
+  
+  <Tooltip />
 </main>
 
 <style>
